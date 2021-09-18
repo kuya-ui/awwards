@@ -9,6 +9,15 @@ class Profile(models.Model):
     bio = models.TextField(max_length=1000)
     info = models.TextField(max_length=5000)
 
+    def __str__(self):
+        return self.username
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
 class Projects(models.Model):
     title = models.CharField(max_length=500)
     description=models.TextField(max_length=2000)
