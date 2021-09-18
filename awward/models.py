@@ -25,6 +25,8 @@ class Projects(models.Model):
     image=models.ImageField(upload_to='images/')
     user = models.ForeignKey(User,on_delete = models.CASCADE)
 
+    
+
 class Ratings(models.Model):
     design = models.IntegerField(default=1)
     usability = models.IntegerField(default=1)
