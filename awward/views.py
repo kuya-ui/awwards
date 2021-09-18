@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404
 from django.contrib.auth.decorators import login_required
+from .models import Profile,Projects,Comments,Ratings
+from .forms import NewProjectForm,CommentForm,EditProfileForm
 # from rest_framework.response import Response
 # from rest_framework.views import APIView
 
