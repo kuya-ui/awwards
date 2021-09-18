@@ -25,7 +25,30 @@ class Projects(models.Model):
     image=models.ImageField(upload_to='images/')
     user = models.ForeignKey(User,on_delete = models.CASCADE)
 
-    
+    def save_project(self):
+            self.save()
+
+    @classmethod
+    def all_projects(cls):
+
+        all_projects = cls.objects.all()
+        return all_projects
+
+    @classmethod
+    def one_project(cls,id):
+        one_project = cls.objects.filter(id=id)
+        return one_project
+
+    @classmethod
+    def user_projects(cls,user):
+        user_projects = cls.objects.filter(user = user)
+        return
+
+    @classmethod
+    def search_project(cls,search_term):
+        searched_project = cls.objects.filter(title = search_term)
+        return searched_project
+
 
 class Ratings(models.Model):
     design = models.IntegerField(default=1)
