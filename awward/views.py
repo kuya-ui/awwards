@@ -3,8 +3,13 @@ from django.http  import HttpResponse,Http404
 from django.contrib.auth.decorators import login_required
 from .models import Profile,Projects,Comments,Ratings
 from .forms import NewProjectForm,CommentForm,EditProfileForm
+from django.contrib.auth.models import User
 # from rest_framework.response import Response
+from django.contrib import messages
+from django.shortcuts import render,get_object_or_404
+# from .serializers import ProfileSerializer,ProjectSerializer
 # from rest_framework.views import APIView
+from django.contrib.auth import logout
 
 # Create your views here.
 @login_required(login_url = '/accounts/login/')
@@ -114,32 +119,32 @@ def single_project(request,id):
 
         return render(request,'single_project.html',{'project':project,'comments':comments,'design':design,'usability':usability,'content':usability})
 
-# @login_required(login_url = '/accounts/login/')
-# def rate(request,id):
-#     if request.method =='POST':
-#         rates = Ratings.objects.filter(id = id)
-#         for rate in rates:
-#             if rate.user == request.user:
-#                 messages.info(request,'You cannot rate a project twice')
-#                 return redirect('singleproject',id)
-#         design = request.POST.get('design')
-#         usability = request.POST.get('usability')
-#         content = request.POST.get('content')
+@login_required(login_url = '/accounts/login/')
+def rate(request,id):
+    if request.method =='POST':
+        rates = Ratings.objects.filter(id = id)
+        for rate in rates:
+            if rate.user == request.user:
+                messages.info(request,'You cannot rate a project twice')
+                return redirect('singleproject',id)
+        design = request.POST.get('design')
+        usability = request.POST.get('usability')
+        content = request.POST.get('content')
 
-#         if design and usability and content:
-#             project = Projects.objects.get(id = id)
-#             rate = Ratings(design = design,usability = usability,content = content,project_id = project,user = request.user)
-#             rate.save()
-#             return redirect('singleproject',id)
+        if design and usability and content:
+            project = Projects.objects.get(id = id)
+            rate = Ratings(design = design,usability = usability,content = content,project_id = project,user = request.user)
+            rate.save()
+            return redirect('singleproject',id)
 
-#         else:
-#             messages.info(request,'Input all fields')
-#             return redirect('singleproject',id)
+        else:
+            messages.info(request,'Input all fields')
+            return redirect('singleproject',id)
 
 
-#     else:
-#         messages.info(request,'Input all fields')
-#         return redirect('singleproject',id)
+    else:
+        messages.info(request,'Input all fields')
+        return redirect('singleproject',id)
         
 # class ProfileList(APIView):
 #     def get(self,request,format = None):
