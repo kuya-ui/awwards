@@ -4,11 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile,Projects,Comments,Ratings
 from .forms import NewProjectForm,CommentForm,EditProfileForm
 from django.contrib.auth.models import User
-# from rest_framework.response import Response
 from django.contrib import messages
 from django.shortcuts import render,get_object_or_404
-# from .serializers import ProfileSerializer,ProjectSerializer
-# from rest_framework.views import APIView
 from django.contrib.auth import logout
 
 # Create your views here.
