@@ -3,15 +3,16 @@ from . import views
 from django.conf import settings
 from django.conf.urls import static
 from django.conf.urls.static import static
+from django.urls import path
 
 
 urlpatterns=[
      url(r'^$',views.index,name='home'),
      url(r'^newproject/$',views.new_project,name='newproject'),
-     url(r'profile/',views.profile,name = 'profile'),
+     path(r'profile/',views.profile,name = 'profile'),
      url(r'^search/',views.search_results,name = 'search_results'),
-     url(r'comment/<int:id>/',views.comment,name='comment'),
-     url(r'rate/<int:id>/',views.rate,name='rates'),
+     path(r'comment/<int:id>/',views.comment,name='comment'),
+     path(r'rate/<int:id>/',views.rate,name='rates'),
      url(r'^api/profile/$',views.ProfileList.as_view()),
      url(r'^api/projects/$',views.ProfileList.as_view()),
      url(r'^singleproject/(\d+)',views.single_project,name='singleproject'),
